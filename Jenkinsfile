@@ -1,6 +1,6 @@
 pipeline{
   agent{
-    docker {image 'nginx:alpine'}
+    docker {image 'docker/compose:debian-1.29.2'}
   }
   stages{
     stage("Docker") {
