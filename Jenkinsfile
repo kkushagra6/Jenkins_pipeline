@@ -7,13 +7,11 @@ pipeline{
       steps{
       sh "docker-compose up -d"
       }
+    }
     stage("Ran Successfully") {
       steps{
       sh 'docker ps -a'
       }
     }
-
-    }
   }
-
 }
