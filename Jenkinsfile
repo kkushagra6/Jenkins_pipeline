@@ -1,7 +1,5 @@
 pipeline{
   agent any
-
-
   stages{
     
     stage("Docker Build") {
@@ -12,7 +10,7 @@ pipeline{
     stage("Docker Authenticate & Push to repo") {
       steps{
         script{
-          withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')])' {
+          withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
         sh 'echo $PASS | docker login -u $USER --password-stdin'
         sh 'docker push kkushagra6/docker_argo_k8s:v$BUILD_ID'
           }      
