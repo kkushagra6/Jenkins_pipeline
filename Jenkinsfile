@@ -22,7 +22,7 @@ pipeline{
          script{
            withCredentials([usernamePassword(credentialsId: 'c19209b1-238e-4b3e-8b35-d003594d568e', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]){
            echo "Testing"
-           sed 's/image.*/image: "kkushagra6\/"docker_argo_k8s:v{BUILD_NUMBER}/' ./deploy/deploy.yaml
+           sed -i 's/docker_argo_k8s.*/docker_argo_k8s:v${BUILD_ID}/' ./deploy/deploy.yaml           
            git add .
            git commit -m "Updated Deploy YAML"
            git push https://github.com/kkushagra6/Jenkins_pipeline.git HEAD:main
