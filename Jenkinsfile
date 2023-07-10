@@ -20,7 +20,7 @@ pipeline{
     stage("Update the Image name in the k8s yaml that argo is watching") {
        steps{
          script{
-           withCredentials([usernamePassword(credentialsId: 'c19209b1-238e-4b3e-8b35-d003594d568e', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]){
+           withCredentials([usernamePassword(credentialsId: 'c19209b1-238e-4b3e-8b35-d003594d568e', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
            echo "Testing"
            sed -i 's/docker_argo_k8s.*/docker_argo_k8s:v${BUILD_ID}/' ./deploy/deploy.yaml           
            git add .
