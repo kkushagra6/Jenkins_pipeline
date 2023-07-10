@@ -26,6 +26,7 @@ pipeline{
            sed -i 's/docker_argo_k8s.*/docker_argo_k8s:v${BUILD_ID}/' ./deploy/deploy.yaml           
            git add .
            git commit -m "Updated Deploy YAML"
+           git remote -v
            git push https://github.com/kkushagra6/Jenkins_pipeline.git HEAD:main
            '''
            }
