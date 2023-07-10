@@ -1,17 +1,30 @@
 pipeline{
-  agent{
-    docker {image 'docker/compose:debian-1.29.2'}
-  }
+  agent any
+
+
   stages{
-    stage("Docker") {
+    
+    stage("Docker Build") {
       steps{
-      sh "docker-compose up -d"
+      sh "docker build -t kkushagra6/docker_argo_k8s:v$BUILD_ID ."
       }
     }
-    stage("Ran Successfully") {
+    stage("Docker Authenticate & Push to repo") {
       steps{
-      sh 'docker ps -a'
+        script{
+          withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')])' {
+        sh 'echo $PASS | docker login -u $USER --password-stdin'
+        sh 'docker push kkushagra6/docker_argo_k8s:v$BUILD_ID'
+          }      
+        }
       }
     }
+    stage("Update the Image name in the k8s yaml that argo is watching") {
+       steps{
+       echo "Testing"
+       }
+    }
+    
+
   }
 }
